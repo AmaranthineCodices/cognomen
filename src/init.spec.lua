@@ -35,6 +35,16 @@ return function()
 			end).to.throw()
 		end)
 
+		it("should throw if the object is already named", function()
+			local testObject = newproxy(true)
+
+			Cognomen.name(testObject, "test")
+
+			expect(function()
+				Cognomen.name(testObject, "otherTest")
+			end).to.throw()
+		end)
+
 		it("should get names", function()
 			local testObject = newproxy(true)
 

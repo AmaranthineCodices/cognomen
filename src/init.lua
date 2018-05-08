@@ -13,6 +13,9 @@ local Cognomen = {}
 	`object` may be any value except nil.
 	`name` must be a string.
 
+	If the object is already named, this function will throw.
+	Use Cognomen.unname to remove the name of an object before renaming it.
+
 	If called with one argument, this function acts as an alias of getName.
 ]]
 function Cognomen.name(...)
@@ -27,6 +30,10 @@ function Cognomen.name(...)
 		local object, name = ...
 		assert(type(object) ~= "nil", "object (1) must not be nil")
 		assert(type(name) == "string", "name (2) must be a string")
+
+		if names[object] ~= nil then
+			error(("the object %s is already named %q"):format(tostring(object), name), 2)
+		end
 
 		names[object] = name
 	-- count == 1 means we're getting the name of something
